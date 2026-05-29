@@ -1,0 +1,21 @@
+# Raw/source data and generated database files
+data/raw/*.csv
+data/raw/*.json
+database/*.sqlite
+database/*.db
+
+# Generated outputs
+data/processed/*.csv
+data/processed/*.json
+reports/*.html
+images/*.png
+
+# Local/runtime files
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.idea/
+database.db
+scripts/.idea/
+scripts/database/
+*.log
