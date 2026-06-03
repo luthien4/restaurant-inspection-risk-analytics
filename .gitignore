@@ -9,6 +9,10 @@ data/processed/*.csv
 data/processed/*.json
 reports/*.html
 images/*.png
+!images/full_result_distribution.png
+!images/full_facility_failure_rates.png
+!images/full_monthly_failure_trend.png
+!images/practical-data-engineering-habits.png
 
 # Local/runtime files
 __pycache__/

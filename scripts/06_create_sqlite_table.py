@@ -34,3 +34,4 @@ conn.commit()
 conn.close()
 
 print(f"Database ready: {output_path}")
+

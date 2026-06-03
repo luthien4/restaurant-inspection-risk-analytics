@@ -11,7 +11,6 @@ url = "https://data.cityofchicago.org/resource/4ijn-s7e5.json"
 # Define parameters to request only 10 rows
 params = {"$limit": 10}
 
-
 # Send the request
 response = requests.get(url, params=params)
 response.raise_for_status()
