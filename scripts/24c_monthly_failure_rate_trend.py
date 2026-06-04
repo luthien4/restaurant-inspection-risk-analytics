@@ -1,59 +1,52 @@
+# Create a time-series chart of monthly failure rates and the 12-month trend.
+
 from pathlib import Path
+
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
 
-sns.set(style="darkgrid")
 
-data_path = Path("data/processed")
+sns.set_theme(style="whitegrid")
 
-data = pd.read_csv(data_path / "full_monthly_inspection_summary.csv")
+input_path = Path("data/processed/full_monthly_inspection_summary.csv")
+output_path = Path("images/full_monthly_failure_trend.png")
+output_path.parent.mkdir(parents=True, exist_ok=True)
 
-# Convert inspection_month to datetime
+data = pd.read_csv(input_path)
 data["inspection_month"] = pd.to_datetime(data["inspection_month"])
-
-# Compute the 12-month rolling average
 data["failure_rolling_avg"] = (
     data["failure_rate_pct"].rolling(window=12, min_periods=12).mean()
 )
 
-print(data)
+fig, ax = plt.subplots(figsize=(11, 6))
 
-fig, ax = plt.subplots(figsize=(10, 6))
+sns.lineplot(
+    data=data,
+    x="inspection_month",
+    y="failure_rate_pct",
+    color="#9ECAE1",
+    label="Failure rate (%)",
+    linewidth=1.5,
+    ax=ax,
+)
 
-sns.lineplot(data = data,
-             x="inspection_month",
-             y="failure_rate_pct",
-             marker=None,
-             color="#9ecae1",
-             label="Failure rate (%)",
-             linewidth=1.5,
-             ax=ax
-             )
+sns.lineplot(
+    data=data,
+    x="inspection_month",
+    y="failure_rolling_avg",
+    color="#265F7C",
+    label="12-month rolling average",
+    linewidth=3,
+    ax=ax,
+)
 
-sns.lineplot(data = data,
-             x="inspection_month",
-             y="failure_rolling_avg",
-             marker=None,
-             color="#265f7c",
-             label="12-month rolling average",
-             linewidth=3,
-             ax=ax
-             )
-
-plt.title("Monthly Food Inspection Failure Rate")
-plt.ylabel("Failure rate (%)")
-plt.xlabel("Inspection month")
+ax.set_title("Monthly Food Inspection Failure Rate", fontsize=16, pad=14)
+ax.set_xlabel("Inspection month", fontsize=12)
+ax.set_ylabel("Failure rate (%)", fontsize=12)
 
 plt.tight_layout()
-
-# Save plot in images folder
-output_path = Path("images/full_monthly_failure_trend.png")
-output_path.parent.mkdir(parents=True, exist_ok=True)
-plt.savefig(output_path,
-            dpi=300,
-            bbox_inches="tight")
-
+plt.savefig(output_path, dpi=300, bbox_inches="tight")
 plt.show()
 
 print("Output path:", output_path)

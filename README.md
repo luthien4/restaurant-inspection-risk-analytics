@@ -18,6 +18,14 @@ How can Chicago food inspection records be used to identify patterns in inspecti
 
 The final analysis uses the full API extract available at the time of the project: **311,157 inspection records**.
 
+## Key Findings
+
+- **Inspection outcomes:** 66.6% of inspections resulted in a pass or pass with conditions, while 19.3% failed.
+- **Facility-type risk:** Among facility types with at least 100 inspections, Wholesale, Liquor, and Tavern facilities had the highest failure rates.
+- **Time trend:** Recorded monthly failure rates were generally higher in early records than in recent records, but this should be interpreted cautiously because reporting and inspection practices may have changed over time.
+- **ZIP-code risk:** Several high-volume ZIP codes, including 60619, 60620, and 60628, showed elevated failure rates near 25%.
+- **Violation text:** Violation text is not equivalent to failure because it also appears in many passed inspections.
+
 ## Data Source
 
 - Source: [City of Chicago Food Inspections](https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5)
@@ -175,6 +183,7 @@ python scripts\23a_export_full_result_distribution.py
 python scripts\23b_export_full_facility_failure_rates.py
 python scripts\23c_export_full_monthly_inspection_summary.py
 python scripts\23d_export_full_violation_presence_by_result.py
+python scripts\25a_export_zip_failure_rates.py
 ```
 
 To recreate the README charts:
@@ -202,8 +211,14 @@ data/processed/full_zip_failure_rates.csv
 
 The README chart images are tracked so the visual highlights render on GitHub.
 
+## Limitations
+
+- The analysis uses inspection records as reported by the source system; historical changes in inspection policy, reporting practices, or business conditions may affect trend interpretation.
+- Failure rates are filtered by minimum inspection volume, but categories or ZIP codes with lower counts should still be interpreted cautiously.
+- Violation text is treated as supporting detail, not as a direct failure flag, because many passed inspections also include violation descriptions.
+- ZIP-code analysis identifies geographic patterns but does not explain causes; neighborhood context, facility mix, and inspection frequency may all contribute.
+
 ## Next Steps
 
-- Polish chart styling for a more consistent visual identity.
 - Parse individual violation codes into a separate table.
-- Add a short data-quality section explaining limits of violation text and historical trend interpretation.
+- Add a small automated quality-check script for generated analysis outputs.

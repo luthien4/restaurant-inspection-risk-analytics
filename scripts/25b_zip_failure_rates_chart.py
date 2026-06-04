@@ -1,56 +1,50 @@
+# Create a horizontal bar chart of ZIP codes with the highest failure rates.
+
 from pathlib import Path
+
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt
 
-sns.set(style="darkgrid")
 
-data_path = Path("data/processed")
+sns.set_theme(style="whitegrid")
 
-data = pd.read_csv(data_path / "full_zip_failure_rates.csv")
-
-data["zip"] = data["zip"].astype(str)
-
-data.sort_values(
-    by="failure_rate_pct",
-    ascending=False,
-    inplace=True
-)
-
-data_top10 = data.head(10)
-
-fig, ax = plt.subplots(figsize=(10, 6))
-
-sns.barplot(data=data_top10,
-            y="zip",
-            x="failure_rate_pct",
-            color="#e27b9b",
-            edgecolor="white",
-            linewidth=1,
-            ax=ax
-            )
-
-# for container in ax.containers:
-ax.bar_label(ax.containers[0],
-             labels=[f"{value:.1f}%" for value in data_top10["failure_rate_pct"]],
-             padding=4,
-             fontsize=10,
-             )
-
-plt.title("ZIP Codes With Highest Food Inspection Failure Rates")
-plt.xlabel("Failure rate (%)")
-plt.ylabel("ZIP code")
-ax.set_xlim(0, data_top10["failure_rate_pct"].max() * 1.12)
-
-plt.tight_layout()
-
-# Save plot in images folder
+input_path = Path("data/processed/full_zip_failure_rates.csv")
 output_path = Path("images/full_zip_failure_rates.png")
 output_path.parent.mkdir(parents=True, exist_ok=True)
-plt.savefig(output_path,
-            dpi=300,
-            bbox_inches="tight")
 
+data = pd.read_csv(input_path)
+data["zip"] = data["zip"].astype(str)
+data = data.sort_values(by="failure_rate_pct", ascending=False)
+top_zip_codes = data.head(10)
+
+fig, ax = plt.subplots(figsize=(11, 6))
+
+sns.barplot(
+    data=top_zip_codes,
+    y="zip",
+    x="failure_rate_pct",
+    color="#C77C9C",
+    edgecolor="white",
+    linewidth=1,
+    ax=ax,
+)
+
+ax.bar_label(
+    ax.containers[0],
+    labels=[f"{value:.1f}%" for value in top_zip_codes["failure_rate_pct"]],
+    padding=4,
+    fontsize=10,
+    color="#263238",
+)
+
+ax.set_title("ZIP Codes With Highest Food Inspection Failure Rates", fontsize=16, pad=14)
+ax.set_xlabel("Failure rate (%)", fontsize=12)
+ax.set_ylabel("ZIP code", fontsize=12)
+ax.set_xlim(0, top_zip_codes["failure_rate_pct"].max() * 1.12)
+
+plt.tight_layout()
+plt.savefig(output_path, dpi=300, bbox_inches="tight")
 plt.show()
 
 print("Output path:", output_path)
