@@ -15,3 +15,7 @@ Monthly failure rates were generally higher in early records, around 24-28% in e
 ## Violation presence by result
 
 Violation text is present for nearly all failed inspections (94.0%) and pass-with-conditions inspections (98.0%), but also appears in 75.3% of passed inspections. This means violation text should not be interpreted as equivalent to failure; it is better treated as supporting inspection detail rather than a simple pass/fail flag.
+
+## ZIP-code failure rates
+
+Among ZIP codes with at least 100 inspections, 60827 had the highest failure rate at 28.8%, but its inspection volume was relatively small. Higher-volume ZIP codes such as 60619, 60620, and 60628 also showed elevated failure rates near 25%, making them stronger candidates for operational risk monitoring.

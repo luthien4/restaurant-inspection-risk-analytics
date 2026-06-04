@@ -61,6 +61,14 @@ Among facility types with at least 100 inspections, Wholesale facilities had the
 
 Monthly failure rates were generally higher in early records, around 24-28% in early 2010, compared with roughly 17-18% in early 2026. This suggests a possible long-term decrease in recorded inspection failure rates, which should be interpreted carefully because inspection practices, reporting rules, and business conditions may have changed over time.
 
+## Supporting Analysis: ZIP-Code Risk
+
+![ZIP codes with highest food inspection failure rates](images/full_zip_failure_rates.png)
+
+Among ZIP codes with at least 100 inspections, 60827 had the highest failure rate at 28.8%, but its inspection volume was relatively small. Higher-volume ZIP codes such as 60619, 60620, and 60628 also showed elevated failure rates near 25%, making them stronger candidates for operational risk monitoring.
+
+ZIP-code failure rates are filtered to areas with at least 100 inspections, but inspection volume still matters. A high percentage based on a smaller number of inspections should be interpreted more cautiously than a similar percentage based on several thousand inspections.
+
 ## Additional Finding
 
 Violation text is present for nearly all failed inspections (94.0%) and pass-with-conditions inspections (98.0%), but also appears in 75.3% of passed inspections. This means violation text should not be interpreted as equivalent to failure; it is better treated as supporting inspection detail rather than a simple pass/fail flag.
@@ -129,6 +137,8 @@ Violation text is present for nearly all failed inspections (94.0%) and pass-wit
 | `24a_create_full_analysis_charts.py` | Create the result distribution chart |
 | `24b_top_facility_failure_rates_chart.py` | Create the facility failure-rate chart |
 | `24c_monthly_failure_rate_trend.py` | Create the monthly failure-rate trend chart |
+| `25a_export_zip_failure_rates.py` | Export ZIP-code failure rates |
+| `25b_zip_failure_rates_chart.py` | Create the ZIP-code failure-rate chart |
 
 ## How To Run
 
@@ -173,6 +183,7 @@ To recreate the README charts:
 python scripts\24a_create_full_analysis_charts.py
 python scripts\24b_top_facility_failure_rates_chart.py
 python scripts\24c_monthly_failure_rate_trend.py
+python scripts\25b_zip_failure_rates_chart.py
 ```
 
 ## Generated Files
@@ -186,6 +197,7 @@ data/processed/full_result_distribution.csv
 data/processed/full_facility_failure_rates.csv
 data/processed/full_monthly_inspection_summary.csv
 data/processed/full_violation_presence_by_result.csv
+data/processed/full_zip_failure_rates.csv
 ```
 
 The README chart images are tracked so the visual highlights render on GitHub.
@@ -193,6 +205,5 @@ The README chart images are tracked so the visual highlights render on GitHub.
 ## Next Steps
 
 - Polish chart styling for a more consistent visual identity.
-- Add ZIP-code level risk analysis.
 - Parse individual violation codes into a separate table.
 - Add a short data-quality section explaining limits of violation text and historical trend interpretation.
